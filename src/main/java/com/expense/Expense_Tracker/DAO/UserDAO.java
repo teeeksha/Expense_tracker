@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-    // GET USER NAME BY ID
+    // Fetches username using user ID
     public String getUserNameById(int userId) {
 
         String sql = "SELECT username FROM users WHERE user_id = ?";
@@ -27,10 +27,10 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "User";
+        return "User"; // Default name if user not found
     }
 
-    // CHECK USER EXISTS
+    // Checks whether user exists in database
     public boolean userExists(int userId) {
 
         String sql = "SELECT user_id FROM users WHERE user_id = ?";
@@ -41,7 +41,7 @@ public class UserDAO {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
 
-            return rs.next();
+            return rs.next(); // true if record exists
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,4 +49,3 @@ public class UserDAO {
         return false;
     }
 }
-
