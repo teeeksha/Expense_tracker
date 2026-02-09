@@ -5,17 +5,22 @@ import java.sql.*;
 
 public class CategoryDAO {
 
+    // This method fetches and displays all expense categories from the database
     public static void showCategories() {
 
+        // SQL query to get expense type categories
         String sql = "SELECT category_id, category_name FROM categories WHERE type='expense'";
 
+        // Establishing database connection and executing query
         try (Connection con = DBConnection.getConnection();
              Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
 
+            // Display header
             System.out.println("\nExpense Categories:");
             System.out.println("ID | Name");
 
+            // Reading each row from the result set
             while (rs.next()) {
                 System.out.println(
                         rs.getInt("category_id") + "  | " +
@@ -24,7 +29,9 @@ public class CategoryDAO {
             }
 
         } catch (SQLException e) {
+            // Handles database related errors
             e.printStackTrace();
         }
     }
 }
+
