@@ -2,15 +2,16 @@ package com.expense.Expense_Tracker.models;
 
 import java.time.LocalDate;
 
+// Model class for Income data
 public class Income {
 
-    private int incomeId;
-    private int userId;
-    private double amount;
-    private String source;
-    private LocalDate date;
+    private int incomeId;     // Income ID from database
+    private int userId;       // User who owns this income
+    private double amount;    // Income amount
+    private String source;    // Income source
+    private LocalDate date;   // Income date
 
-    // Constructor for fetch
+    // Constructor used while fetching income from database
     public Income(int incomeId, int userId, double amount, String source, LocalDate date) {
         this.incomeId = incomeId;
         this.userId = userId;
@@ -19,7 +20,7 @@ public class Income {
         this.date = date;
     }
 
-    // Constructor for insert
+    // Constructor used while inserting new income
     public Income(int userId, double amount, String source, LocalDate date) {
         this.userId = userId;
         this.amount = amount;
@@ -27,6 +28,7 @@ public class Income {
         this.date = date;
     }
 
+    // Getter methods
     public int getIncomeId() {
         return incomeId;
     }
@@ -47,3 +49,5 @@ public class Income {
         return date;
     }
 }
+
+
