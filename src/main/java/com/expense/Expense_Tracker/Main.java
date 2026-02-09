@@ -7,21 +7,27 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+// Main class – entry point of application
 public class Main {
-
     public static void main(String[] args) {
 
+        // Used to take input from user
         Scanner scanner = new Scanner(System.in);
+
+        // DAO object to access expense related database operations
         ExpenseDAO expenseDAO = new ExpenseDAO();
 
-        // ===== Runtime User Name =====
+        // Taking user name at runtime (for display purpose)
         System.out.print("Enter your name: ");
         String currentUserName = scanner.nextLine();
 
-        int userId = 1; // fixed user id
+        // Fixed user id (single user system)
+        int userId = 1;
 
+        // Infinite loop to keep application running
         while (true) {
 
+            // Menu display
             System.out.println("\n=================================");
             System.out.println(" 💰 EXPENSE TRACKER FOR " + currentUserName);
             System.out.println("=================================");
@@ -32,6 +38,7 @@ public class Main {
 
             String input = scanner.nextLine();
 
+            // Input validation (only single digit allowed)
             if (!input.matches("\\d")) {
                 System.out.println("Invalid input!");
                 continue;
@@ -41,15 +48,17 @@ public class Main {
 
             switch (choice) {
 
-                // ================= ADD EXPENSE =================
+                // ===== ADD EXPENSE =====
                 case 1:
                     System.out.print("Enter Amount: ");
                     double amount = Double.parseDouble(scanner.nextLine());
 
+                    // Show expense categories from database
                     expenseDAO.showCategories();
                     System.out.print("Choose Category ID: ");
                     int categoryId = Integer.parseInt(scanner.nextLine());
 
+                    // Show payment methods from database
                     expenseDAO.showPaymentMethods();
                     System.out.print("Choose Payment Method ID: ");
                     int methodId = Integer.parseInt(scanner.nextLine());
@@ -57,6 +66,7 @@ public class Main {
                     System.out.print("Enter Description: ");
                     String description = scanner.nextLine();
 
+                    // Insert expense into database
                     boolean added = expenseDAO.addExpense(
                             userId,
                             amount,
@@ -73,7 +83,7 @@ public class Main {
                     }
                     break;
 
-                // ================= VIEW EXPENSES =================
+                // ===== VIEW ALL EXPENSES =====
                 case 2:
                     List<Expense> list = expenseDAO.getAllExpenses();
 
@@ -82,6 +92,7 @@ public class Main {
                     if (list.isEmpty()) {
                         System.out.println("No expenses found.");
                     } else {
+                        // Display each expense
                         for (Expense e : list) {
                             System.out.println(
                                     e.getCategory() + " | ₹" +
@@ -92,13 +103,11 @@ public class Main {
                         }
                     }
                     break;
-
-                // ================= EXIT =================
+                // ===== EXIT APPLICATION =====
                 case 3:
                     System.out.println("Goodbye!");
                     System.exit(0);
                     break;
-
                 default:
                     System.out.println("Invalid option!");
             }
